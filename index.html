@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Group Links Hub</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" type="image/png">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+        }
+
+        header {
+            background: #000;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.2em;
+            border-bottom: 1px solid #333;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #1da1f2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #1991db;
+        }
+
+        section {
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            background: #000;
+            border-radius: 16px;
+            border: 1px solid #333;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form input {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+            background: #000;
+            color: #fff;
+        }
+
+        form input:focus {
+            border-color: #1da1f2;
+        }
+
+        form button {
+            padding: 10px 15px;
+            background: #1da1f2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        form button:hover {
+            background: #1991db;
+            transform: scale(1.05);
+        }
+
+        .group-item {
+            margin-top: 10px;
+            padding: 15px;
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .group-item a {
+            color: #1da1f2;
+            text-decoration: none;
+        }
+
+        .group-item button {
+            background: #1da1f2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .group-item button:hover {
+            background: #1991db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #000;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1da1f2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .fab:hover {
+            background: #1991db;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#groups">Groups</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Welcome to WhatsApp Group Links</h1>
+        <p>Join our community and connect with others!</p>
+    </section>
+
+    <section id="groups">
+        <h2>Add Your Group</h2>
+        <form id="groupForm">
+            <input type="text" id="groupTitle" name="groupTitle" placeholder="Enter group title" required>
+            <input type="url" id="groupLink" name="groupLink" placeholder="Enter WhatsApp group link" required>
+            <button type="submit">Add Group</button>
+        </form>
+        <div id="groupList"></div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p>Contact Info: <a href="mailto:abamwesigakasisi2006@gmail.com" style="color: #1da1f2;">abamwesigakasisi2006@gmail.com</a> | <a href="https://wa.me/255697349592" style="color: #1da1f2;">WhatsApp: +255697349592</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 WhatsApp Group Links</p>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToGroups()">+</button>
+
+    <script>
+        document.getElementById('groupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const groupTitle = document.getElementById('groupTitle').value;
+            const groupLink = document.getElementById('groupLink').value;
+
+            // Basic WhatsApp group link validation
+            if (!groupLink.includes('chat.whatsapp.com')) {
+                alert('Please enter a valid WhatsApp group link.');
+                return;
+            }
+
+            if (groupTitle && groupLink) {
+                addGroupLink(groupTitle, groupLink);
+                document.getElementById('groupTitle').value = '';
+                document.getElementById('groupLink').value = '';
+            }
+        });
+
+        function addGroupLink(title, link) {
+            const groupList = document.getElementById('groupList');
+            const groupItem = document.createElement('div');
+            groupItem.classList.add('group-item');
+
+            groupItem.innerHTML = `
+                <div>
+                    <strong>${title}</strong><br>
+                    <a href="${link}" target="_blank">${link}</a>
+                </div>
+                <button onclick="copyLink('${link}')">Copy Link</button>
+            `;
+
+            groupList.appendChild(groupItem);
+        }
+
+        function copyLink(link) {
+            navigator.clipboard.writeText(link)
+                .then(() => alert('Link copied to clipboard!'))
+                .catch(() => alert('Failed to copy link.'));
+        }
+
+        function scrollToGroups() {
+            document.getElementById('groups').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
